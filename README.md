@@ -13,8 +13,6 @@ FastAPI Backend app
 ### Aiven.io
 * Postgres
 
-
-
 ## Install
 pip install -r requirements.txt
 ## Docker Run
