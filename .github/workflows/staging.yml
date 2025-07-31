@@ -1,4 +1,4 @@
-name: Deploy Staging to Modal.com
+name: Deploy Staging
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Deploy Dev to Modal.com
+name: Deploy Dev
 
 on:
   push:

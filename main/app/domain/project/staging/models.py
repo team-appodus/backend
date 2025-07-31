@@ -11,7 +11,7 @@ class ProjectStaging(BaseEntity):
     email = Column(String(60), nullable=False)
     phone = Column(String(17), nullable=False)
     company_name = Column(String(100), nullable=False)
-    budget = Column(String(100), nullable=True)
+    budget_range = Column(String(100), nullable=True)
     timeline = Column(String(100), nullable=True)
     what_building = Column(Text, nullable=True)
     what_not_building = Column(Text, nullable=True)
@@ -19,11 +19,7 @@ class ProjectStaging(BaseEntity):
     customer_location = Column(String(30), nullable=True)
     build_type = Column(String(30), nullable=True)
     platform = Column(String(30), nullable=True)
-    core_product_types = Column(JSON, nullable=True)
-    web_presences = Column(JSON, nullable=True)
-    growth_and_sales = Column(JSON, nullable=True)
-    community_and_engagements = Column(JSON, nullable=True)
-    learning_and_onboardings = Column(JSON, nullable=True)
+    product_types = Column(JSON, nullable=True)
     payments = Column(JSON, nullable=True)
     escrow_support = Column(Boolean, nullable=True)
     messaging_apis = Column(JSON, nullable=True)
@@ -32,9 +28,9 @@ class ProjectStaging(BaseEntity):
     other_social_logins = Column(JSON, nullable=True)
     file_stores = Column(JSON, nullable=True)
     other_file_stores = Column(String(100), nullable=True)
-    marketing_tools = Column(String(100), nullable=True)
+    crm_tools = Column(String(100), nullable=True)
     other_third_party_apis = Column(String(100), nullable=True)
-    post_production_support = Column(Integer, nullable=True)
+    post_production_support = Column(String(10), nullable=True)
 
 
 class ProjectStagingBaseDto(Object):
@@ -43,7 +39,7 @@ class ProjectStagingBaseDto(Object):
     phone: str = Field(..., title="Phone number", description="Your phone number")
     company_name: str = Field(..., title="Your Company/ Startup name", description="Your full name")
 
-    budget: Optional[str] = None
+    budget_range: Optional[str] = None
     timeline: Optional[str] = None
 
     what_building: Optional[str] = None
@@ -53,11 +49,7 @@ class ProjectStagingBaseDto(Object):
 
     build_type: Optional[str] = None
     platform: Optional[str] = None
-    core_product_types: Optional[List[str]] = None
-    web_presences: Optional[List[str]] = None
-    growth_and_sales: Optional[List[str]] = None
-    community_and_engagements: Optional[List[str]] = None
-    learning_and_onboardings: Optional[List[str]] = None
+    product_types: Optional[List[str]] = None
 
     payments: Optional[List[str]] = None
     escrow_support: Optional[bool] = None
@@ -67,9 +59,9 @@ class ProjectStagingBaseDto(Object):
     other_social_logins: Optional[str] = None
     file_stores: Optional[List[str]] = None
     other_file_stores: Optional[str] = None
-    marketing_tools: Optional[str] = None
+    crm_tools: Optional[str] = None
     other_third_party_apis: Optional[str] = None
-    post_production_support: Optional[int] = None # -1=not-sure, 0=no, 1=yes
+    post_production_support: Optional[str] = None # -1=not-sure, 0=no, 1=yes
 
 
 class UpsertProjectStagingDto(ProjectStagingBaseDto):

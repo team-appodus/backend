@@ -31,7 +31,7 @@ class TestProjectController(unittest.IsolatedAsyncioTestCase):
             phone="2347039018727",
             company_name="Appodus Technologies Limited",
 
-            budget="NGN50M",
+            budget_range="NGN50M",
             timeline="ASAP",
 
             what_building="We're building a flying car",
