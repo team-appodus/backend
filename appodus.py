@@ -7,9 +7,9 @@ from starlette.middleware.cors import CORSMiddleware
 
 from main.app.config.settings import settings  # Very import! Load settings before importing from appodus_utils
 from main.app.config.bootstrap import bootstrap_di
-from main.app.domain import appodus_router
 
 bootstrap_di()
+from main.app.domain import appodus_router
 from main.app.db.seeder import DataSeeder
 
 from appodus_utils.db.session import close_db_engine
