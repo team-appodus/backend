@@ -41,7 +41,7 @@ class TestProjectController(unittest.IsolatedAsyncioTestCase):
 
             build_type="New build",
             platform="Both",
-            post_production_support=-1,  # -1=not-sure, 0=no, 1=yes
+            post_production_support="yes",  # -1=not-sure, 0=no, 1=yes
             staging_id="staging_id"
         )
 
