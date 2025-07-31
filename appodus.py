@@ -1,7 +1,6 @@
 from contextlib import asynccontextmanager
 from logging import Logger
 
-import modal
 from libre_fastapi_jwt.exceptions import AuthJWTException
 from starlette import status
 from starlette.middleware.cors import CORSMiddleware
