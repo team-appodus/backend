@@ -28,7 +28,6 @@ def bootstrap_di() -> None:
         username=settings.REDIS_USERNAME
     ) if settings.REDIS_ENABLED else {}
 
-    # di[Client] = lambda _di: Client(auth=(settings.MAILJET_API_KEY, settings.MAILJET_API_SECRET), version='v3.1')
     di['logger'] = lambda _di: LoggerFactory().get_logger()
     di[AuthJWTBearer] = lambda _di: AuthJWTBearer()
     di[AsyncClient] =  lambda _di: AsyncClient()
