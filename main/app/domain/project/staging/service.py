@@ -15,8 +15,7 @@ logger: Logger = di['logger']
 
 @inject
 @decorate_all_methods(transactional(), exclude=['__init__', 'get_account_security_messages'], exclude_startswith='_')
-@decorate_all_methods(method_trace_logger, exclude=['__init__', 'get_account_security_messages'],
-                      exclude_startswith='_')
+@decorate_all_methods(method_trace_logger, exclude=['__init__', 'get_account_security_messages'], exclude_startswith='_')
 class ProjectStagingService:
     def __init__(self,
                  project_staging_repo: ProjectStagingRepo,

@@ -1,8 +1,8 @@
 from typing import List, Optional
 
 from appodus_utils import BaseEntity, PageRequest, BaseQueryDto, Object
-from pydantic import Field, EmailStr
-from sqlalchemy import Column, String, JSON, Boolean, Text, Integer
+from pydantic import Field
+from sqlalchemy import Column, String, JSON, Boolean, Text
 
 
 class ProjectStaging(BaseEntity):
@@ -61,7 +61,7 @@ class ProjectStagingBaseDto(Object):
     other_file_stores: Optional[str] = None
     crm_tools: Optional[str] = None
     other_third_party_apis: Optional[str] = None
-    post_production_support: Optional[str] = None # -1=not-sure, 0=no, 1=yes
+    post_production_support: Optional[str] = None  # -1=not-sure, 0=no, 1=yes
 
 
 class UpsertProjectStagingDto(ProjectStagingBaseDto):
