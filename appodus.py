@@ -81,9 +81,13 @@ app.add_middleware(
     allow_origins=[origin.strip() for origin in settings.ALLOWED_ORIGINS.split(',') if origin.strip()],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization", "X-TIMEZONE", "X-LOCALE", "X-CSRF-Token"], )
-
-
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+        "X-TIMEZONE",
+        "X-LOCALE",
+        "X-CSRF-Token",
+    ], )
 
 @app.get("/health", status_code=status.HTTP_200_OK)
 def health_check():
