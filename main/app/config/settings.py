@@ -60,15 +60,19 @@ class Settings(AppodusBaseSettings):
 
     # CORS
     ALLOWED_ORIGINS: Optional[str] = """
+    http://192.168.0.107,
     http://192.168.0.107:3000,
-    http://localhost/,
-    http://localhost:3000/,
-    http://127.0.0.1/,
-    http://127.0.0.1:3000/,
+    http://localhost,
+    http://localhost:3000,
+    http://127.0.0.1,
+    http://127.0.0.1:3000,
+    http://0.0.0.0:3000,
     https://appodus.com,
     https://www.appodus.com,
     https://staging.appodus.com,
     https://dev.appodus.com,
+    https://test.appodus.com,
+    https://*.appodus.com,
     """
 
     # TOKEN
