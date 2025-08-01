@@ -14,12 +14,12 @@ from main.app.db.seeder import DataSeeder
 
 from appodus_utils.db.session import close_db_engine
 from appodus_utils.domain.client.controller import client_router
-from appodus_utils.exception.exception_apps import (
-    appodus_exception_app,
-    http_error_app,
-    validation_exception_app,
-    generic_exception_app,
-    authjwt_exception_app
+from appodus_utils.exception.exception_handlers import (
+    appodus_exception_handler,
+    http_error_handler,
+    validation_exception_handler,
+    generic_exception_handler,
+    authjwt_exception_handler
 )
 from appodus_utils.exception.exceptions import AppodusBaseException
 from appodus_utils.middleware.db_session_middleware import DBSessionMiddleware
@@ -60,14 +60,14 @@ app.include_router(appodus_router)
 
 # Exception Handlers
 # Custom appodus exceptions
-app.add_exception_app(AppodusBaseException, appodus_exception_app)
+app.add_exception_handler(AppodusBaseException, appodus_exception_handler)
 # AuthJWTException
-app.add_exception_app(AuthJWTException, authjwt_exception_app)
+app.add_exception_handler(AuthJWTException, authjwt_exception_handler)
 # FastAPI built-in ones
-app.add_exception_app(StarletteHTTPException, http_error_app)
-app.add_exception_app(RequestValidationError, validation_exception_app)
+app.add_exception_handler(StarletteHTTPException, http_error_handler)
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
 # Catch-all fallback
-app.add_exception_app(Exception, generic_exception_app)
+app.add_exception_handler(Exception, generic_exception_handler)
 #
 # # Middlewares
 # app.add_middleware(ClientAuthMiddleware)
