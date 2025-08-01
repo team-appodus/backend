@@ -12,14 +12,14 @@ bootstrap_di()
 from appodus_utils.db.session import close_db_engine
 
 
-from appodus import fast_api_app
+from appodus import app
 from appodus_utils.test.appodus_test_utils import TestUtils
 from starlette import status
 
 class TestProjectStagingController(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
 
-        self.client = TestUtils.get_app_test_client(app=fast_api_app)
+        self.client = TestUtils.get_app_test_client(app=app)
         self.endpoint = "/v1/projects/staging"
 
         self.project_staging_dto = UpsertProjectStagingDto(

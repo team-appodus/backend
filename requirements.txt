@@ -20,7 +20,6 @@ phonenumbers>=9.0.10,<9.1.0
 prometheus-client>=0.21.1,<0.22.0 # Metrics capturing and viewing
 
 
-
 # google-auth-oauthlib>=1.2.2,<1.3.0
 # supabase
 # weaviate-client
