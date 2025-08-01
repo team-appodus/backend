@@ -66,6 +66,7 @@ class Settings(AppodusBaseSettings):
     http://127.0.0.1/,
     http://127.0.0.1:3000/,
     https://appodus.com,
+    https://www.appodus.com,
     https://staging.appodus.com,
     https://dev.appodus.com,
     """

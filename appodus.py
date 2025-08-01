@@ -87,9 +87,6 @@ app.add_middleware(
         "X-TIMEZONE",
         "X-LOCALE",
         "X-CSRF-Token",
-        "X-Client-ID",
-        "X-Timestamp",
-        "X-Signature"
     ], )
 
 @app.get("/health", status_code=status.HTTP_200_OK)
