@@ -14,12 +14,12 @@ from main.app.db.seeder import DataSeeder
 
 from appodus_utils.db.session import close_db_engine
 from appodus_utils.domain.client.controller import client_router
-from appodus_utils.exception.exception_handlers import (
-    appodus_exception_handler,
-    http_error_handler,
-    validation_exception_handler,
-    generic_exception_handler,
-    authjwt_exception_handler
+from appodus_utils.exception.exception_apps import (
+    appodus_exception_app,
+    http_error_app,
+    validation_exception_app,
+    generic_exception_app,
+    authjwt_exception_app
 )
 from appodus_utils.exception.exceptions import AppodusBaseException
 from appodus_utils.middleware.db_session_middleware import DBSessionMiddleware
@@ -51,32 +51,32 @@ async def lifespan_event(app: FastAPI):
     logger.debug(f"{settings.APP_NAME} is shutdown")
 
 
-handler = FastAPI(lifespan=lifespan_event)
+app = FastAPI(lifespan=lifespan_event)
 
 # Routers
-handler.include_router(client_router)
-handler.include_router(appodus_router)
-# handler.include_router(webhook_router)
+app.include_router(client_router)
+app.include_router(appodus_router)
+# app.include_router(webhook_router)
 
 # Exception Handlers
 # Custom appodus exceptions
-handler.add_exception_handler(AppodusBaseException, appodus_exception_handler)
+app.add_exception_app(AppodusBaseException, appodus_exception_app)
 # AuthJWTException
-handler.add_exception_handler(AuthJWTException, authjwt_exception_handler)
+app.add_exception_app(AuthJWTException, authjwt_exception_app)
 # FastAPI built-in ones
-handler.add_exception_handler(StarletteHTTPException, http_error_handler)
-handler.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_app(StarletteHTTPException, http_error_app)
+app.add_exception_app(RequestValidationError, validation_exception_app)
 # Catch-all fallback
-handler.add_exception_handler(Exception, generic_exception_handler)
+app.add_exception_app(Exception, generic_exception_app)
 #
 # # Middlewares
 # app.add_middleware(ClientAuthMiddleware)
-handler.add_middleware(DBSessionMiddleware)
-handler.add_middleware(RequestLoggingMiddleware)
+app.add_middleware(DBSessionMiddleware)
+app.add_middleware(RequestLoggingMiddleware)
 
 
 # CORS Configuration
-handler.add_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=[origin.strip() for origin in settings.ALLOWED_ORIGINS.split(',') if origin.strip()],
     allow_credentials=True,
@@ -85,7 +85,7 @@ handler.add_middleware(
 
 
 
-@handler.get("/health", status_code=status.HTTP_200_OK)
+@app.get("/health", status_code=status.HTTP_200_OK)
 def health_check():
     return {"status": "healthy"}
 
@@ -93,4 +93,4 @@ def health_check():
 if __name__ == "__main__":
     import uvicorn
     # logger.logger.error("Starting dev server:")
-    uvicorn.run(handler, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
