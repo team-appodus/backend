@@ -15,14 +15,14 @@ from main.app.domain.project.staging.service import ProjectStagingService
 from appodus_utils.db.session import close_db_engine
 
 
-from appodus import fast_api_app
+from appodus import app
 from appodus_utils.test.appodus_test_utils import TestUtils
 from starlette import status
 
 class TestProjectController(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
 
-        self.client = TestUtils.get_app_test_client(app=fast_api_app)
+        self.client = TestUtils.get_app_test_client(app=app)
         self.endpoint = "/v1/projects"
 
         self.project_dto = CreateProjectDto(
@@ -41,7 +41,7 @@ class TestProjectController(unittest.IsolatedAsyncioTestCase):
 
             build_type="New build",
             platform="Both",
-            post_production_support=-1,  # -1=not-sure, 0=no, 1=yes
+            post_production_support="yes",  # -1=not-sure, 0=no, 1=yes
             staging_id="staging_id"
         )
 

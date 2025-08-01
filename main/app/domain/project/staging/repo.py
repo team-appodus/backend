@@ -2,7 +2,6 @@ from typing import Type, Optional
 
 from appodus_utils.db.repo import GenericRepo
 from kink import inject
-from pydantic import EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 

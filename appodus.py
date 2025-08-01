@@ -7,9 +7,9 @@ from starlette.middleware.cors import CORSMiddleware
 
 from main.app.config.settings import settings  # Very import! Load settings before importing from appodus_utils
 from main.app.config.bootstrap import bootstrap_di
-from main.app.domain import appodus_router
 
 bootstrap_di()
+from main.app.domain import appodus_router
 from main.app.db.seeder import DataSeeder
 
 from appodus_utils.db.session import close_db_engine
@@ -51,32 +51,32 @@ async def lifespan_event(app: FastAPI):
     logger.debug(f"{settings.APP_NAME} is shutdown")
 
 
-fast_api_app = FastAPI(lifespan=lifespan_event)
+app = FastAPI(lifespan=lifespan_event)
 
 # Routers
-fast_api_app.include_router(client_router)
-fast_api_app.include_router(appodus_router)
-# fast_api_app.include_router(webhook_router)
+app.include_router(client_router)
+app.include_router(appodus_router)
+# app.include_router(webhook_router)
 
 # Exception Handlers
 # Custom appodus exceptions
-fast_api_app.add_exception_handler(AppodusBaseException, appodus_exception_handler)
+app.add_exception_handler(AppodusBaseException, appodus_exception_handler)
 # AuthJWTException
-fast_api_app.add_exception_handler(AuthJWTException, authjwt_exception_handler)
+app.add_exception_handler(AuthJWTException, authjwt_exception_handler)
 # FastAPI built-in ones
-fast_api_app.add_exception_handler(StarletteHTTPException, http_error_handler)
-fast_api_app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(StarletteHTTPException, http_error_handler)
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
 # Catch-all fallback
-fast_api_app.add_exception_handler(Exception, generic_exception_handler)
+app.add_exception_handler(Exception, generic_exception_handler)
 #
 # # Middlewares
 # app.add_middleware(ClientAuthMiddleware)
-fast_api_app.add_middleware(DBSessionMiddleware)
-fast_api_app.add_middleware(RequestLoggingMiddleware)
+app.add_middleware(DBSessionMiddleware)
+app.add_middleware(RequestLoggingMiddleware)
 
 
 # CORS Configuration
-fast_api_app.add_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=[origin.strip() for origin in settings.ALLOWED_ORIGINS.split(',') if origin.strip()],
     allow_credentials=True,
@@ -85,7 +85,7 @@ fast_api_app.add_middleware(
 
 
 
-@fast_api_app.get("/health", status_code=status.HTTP_200_OK)
+@app.get("/health", status_code=status.HTTP_200_OK)
 def health_check():
     return {"status": "healthy"}
 
@@ -93,4 +93,4 @@ def health_check():
 if __name__ == "__main__":
     import uvicorn
     # logger.logger.error("Starting dev server:")
-    uvicorn.run(fast_api_app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
