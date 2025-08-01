@@ -65,11 +65,9 @@ class Settings(AppodusBaseSettings):
     http://localhost:3000/,
     http://127.0.0.1/,
     http://127.0.0.1:3000/,
-    https://.*\\.vercel\\.app,
-    http(s)?://(.+\\.)?vercel\\.app(:\\d{1,5})?$,
-    https://appodus-web.vercel.app,
-    https://appodus-web-dev.vercel.app,
-    https://veriprops-web-staging.vercel.app,
+    https://appodus.com,
+    https://staging.appodus.com,
+    https://dev.appodus.com,
     """
 
     # TOKEN
