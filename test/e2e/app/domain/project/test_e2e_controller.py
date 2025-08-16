@@ -1,11 +1,11 @@
 import unittest
 
+from main.app.config.settings import settings  # Very import! Load settings before importing from appodus_utils
+from main.app.config.bootstrap import DiBootstrap
+
+from appodus_utils.common.appodus_test_utils import TestUtils
 from kink import di
 
-from main.app.config.settings import settings  # Very import! Load settings before importing from appodus_utils
-from main.app.config.bootstrap import bootstrap_di
-
-bootstrap_di()
 from appodus_utils.common.client_utils import ClientUtils
 
 from appodus_utils.decorators.transactional import transactional, TransactionSessionPolicy
@@ -16,7 +16,6 @@ from appodus_utils.db.session import close_db_engine
 
 
 from appodus import app
-from appodus_utils.test.appodus_test_utils import TestUtils
 from starlette import status
 
 class TestProjectController(unittest.IsolatedAsyncioTestCase):

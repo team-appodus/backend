@@ -18,45 +18,9 @@ class PaymentMethod(str, enum.Enum):
 
 
 class Settings(AppodusBaseSettings):
-    BASE_DIR: str = str(Path(__file__).parent.parent)  # Used by templating engine
-    ENABLE_OUT_MESSAGING: bool = False
-
     # AUTH
-    AUTH_URL_PATH: str = "/auths"
-    # SOCIAL LOGIN
-    SOCIAL_LOGIN_CALLBACK_PATH: Optional[str] = "/socials"
-    # GOOGLE
-    GOOGLE_AUTH_BASE_URL: str = "https://accounts.google.com/o/oauth2/v2/auth"
-    GOOGLE_CLIENT_ID: Optional[str]
-    GOOGLE_CLIENT_SECRET: Optional[str]
-    # FACEBOOK
-    FACEBOOK_AUTH_BASE_URL: str = "https://www.facebook.com/v22.0/dialog/oauth"
-    FACEBOOK_APP_ID: Optional[str]
-    FACEBOOK_APP_SECRET: Optional[str]
-    # APPLE
-    APPLE_AUTH_BASE_URL: str = "https://accounts.google.com/o/oauth2/v2/auth"
-    APPLE_TEAM_ID: Optional[str]
-    APPLE_CLIENT_ID: Optional[str]
-    APPLE_KEY_ID: Optional[str]
-    APPLE_PRIVATE_KEY: Optional[str]
-
-    # SMS Providers
-    SMS_SENDER_ID: Optional[str] = "veriprops"
-    SMS_TTL = 25000
-
-    # AUTHJWT
-    AUTHJWT_SECRET_KEY: str = "auth_jwt_s3cr3t"
-    # Configure application to store and get JWT from cookies
-    AUTHJWT_TOKEN_LOCATION: List[str] = ["cookies"]
-    # Only allow JWT cookies to be sent over https
-    AUTHJWT_COOKIE_SECURE: bool = True
-    # Enable csrf double submit protection. default is True
-    AUTHJWT_COOKIE_CSRF_PROTECT: bool = True
-    # Change to 'lax' in production to make your website more secure from CSRF Attacks, default is None
-    AUTHJWT_COOKIE_SAMESITE: str = 'none' # Must be 'none' when AUTHJWT_COOKIE_SECURE = True
-    # AUTHJWT_ACCESS_COOKIE_KEY: str = 'Host-access_token'
-    # AUTHJWT_REFRESH_COOKIE_KEY: str = 'Host-refresh_token'
-    # AUTHJWT_ALGORITHM: str = ""
+    SOCIAL_LOGIN_SUCCESS_PATH: Optional[str] = "/dashboard"
+    SOCIAL_SIGNUP_SUCCESS_PATH: Optional[str] = "/start-your-build"
 
     # CORS
     ALLOWED_ORIGINS: Optional[str] = """
@@ -74,12 +38,6 @@ class Settings(AppodusBaseSettings):
     https://test.appodus.com,
     https://*.appodus.com,
     """
-
-    # TOKEN
-    OTP_TOKEN_EXPIRE_SECONDS: Optional[int] = 60 * 5 # 5 mins
-    EMAIL_OTP_TOKEN_EXPIRE_SECONDS: Optional[int] = 60 * 30 # 30 mins
-    ACCESS_TOKEN_EXPIRE_SECONDS: Optional[int] = 60 * 60 * 24 * 8
-    REFRESH_TOKEN_EXPIRE_SECONDS: Optional[int] = 60 * 60 * 24 * 8
 
     # PAYMENT
     PAYMENT_REDIRECT_URL: str = "https://www.veriprops.properties"
