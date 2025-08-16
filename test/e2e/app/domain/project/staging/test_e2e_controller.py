@@ -1,9 +1,9 @@
 import unittest
 
-from appodus_utils.common.appodus_test_utils import TestUtils
-
 from main.app.config.settings import settings  # Very import! Load settings before importing from appodus_utils
 from main.app.config.bootstrap import DiBootstrap
+
+from appodus_utils.common.appodus_test_utils import TestUtils
 
 from appodus_utils.common.client_utils import ClientUtils
 
