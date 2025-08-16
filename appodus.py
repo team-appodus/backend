@@ -1,14 +1,14 @@
 from contextlib import asynccontextmanager
 from logging import Logger
 
+from appodus_utils.domain.user.auth.active_auditor.global_context import init_auth_context
 from libre_fastapi_jwt.exceptions import AuthJWTException
 from starlette import status
 from starlette.middleware.cors import CORSMiddleware
 
-from main.app.config.settings import settings  # Very import! Load settings before importing from appodus_utils
-from main.app.config.bootstrap import bootstrap_di
+from main.app.config.settings import settings
+from main.app.config.bootstrap import DiBootstrap
 
-bootstrap_di()
 from main.app.domain import appodus_router
 from main.app.db.seeder import DataSeeder
 
@@ -24,7 +24,7 @@ from appodus_utils.exception.exception_handlers import (
 from appodus_utils.exception.exceptions import AppodusBaseException
 from appodus_utils.middleware.db_session_middleware import DBSessionMiddleware
 from appodus_utils.middleware.request_logging_middleware import RequestLoggingMiddleware
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.exceptions import RequestValidationError
 from httpx import AsyncClient
 from kink import di
@@ -51,7 +51,7 @@ async def lifespan_event(app: FastAPI):
     logger.debug(f"{settings.APP_NAME} is shutdown")
 
 
-app = FastAPI(lifespan=lifespan_event)
+app = FastAPI(lifespan=lifespan_event, dependencies=[Depends(init_auth_context)])
 
 # Routers
 app.include_router(client_router)

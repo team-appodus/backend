@@ -1,19 +1,18 @@
 import unittest
 
+from appodus_utils.common.appodus_test_utils import TestUtils
+
 from main.app.config.settings import settings  # Very import! Load settings before importing from appodus_utils
+from main.app.config.bootstrap import DiBootstrap
+
 from appodus_utils.common.client_utils import ClientUtils
 
-
-
-from main.app.config.bootstrap import bootstrap_di
 from main.app.domain.project.staging.models import ProjectStaging, UpsertProjectStagingDto
 
-bootstrap_di()
 from appodus_utils.db.session import close_db_engine
 
 
 from appodus import app
-from appodus_utils.test.appodus_test_utils import TestUtils
 from starlette import status
 
 class TestProjectStagingController(unittest.IsolatedAsyncioTestCase):

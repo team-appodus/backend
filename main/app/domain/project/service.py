@@ -13,8 +13,8 @@ from main.app.domain.project.staging.service import ProjectStagingService
 logger: Logger = di['logger']
 
 @inject
-@decorate_all_methods(transactional(), exclude=['__init__', 'get_account_security_messages'], exclude_startswith='_')
-@decorate_all_methods(method_trace_logger, exclude=['__init__', 'get_account_security_messages'], exclude_startswith='_')
+@decorate_all_methods(transactional(), exclude=['get_account_security_messages'])
+@decorate_all_methods(method_trace_logger, exclude=['get_account_security_messages'])
 class ProjectService:
     def __init__(self,
                  project_repo: ProjectRepo,

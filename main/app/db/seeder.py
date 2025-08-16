@@ -13,7 +13,7 @@ client_service: ClientService = di[ClientService]
 logger: Logger = di['logger']
 
 
-@decorate_all_methods(transactional(session_policy=TransactionSessionPolicy.ALWAYS_NEW), exclude=['__init__'], exclude_startswith='_')
+@decorate_all_methods(transactional(session_policy=TransactionSessionPolicy.ALWAYS_NEW), exclude=['__init__'])
 class DataSeeder:
     def __init__(self):
         self.seeded = False

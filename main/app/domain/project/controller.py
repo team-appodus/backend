@@ -14,7 +14,7 @@ RouterUtils.add_routers(project_router, [project_staging_router])
 project_service: ProjectService = di[ProjectService]
 
 
-@project_router.post("/", summary='Create project', response_model=SuccessResponse[QueryProjectDto],
+@project_router.post("", summary='Create project', response_model=SuccessResponse[QueryProjectDto],
                   status_code=status.HTTP_201_CREATED)
 async def project_create(
         dto: CreateProjectDto
