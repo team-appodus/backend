@@ -6,6 +6,9 @@ on:
       - prod
   workflow_dispatch:
 
+env:
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
 jobs:
   Run_Tests:
     runs-on: ubuntu-latest

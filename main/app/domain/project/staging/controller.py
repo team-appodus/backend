@@ -11,7 +11,7 @@ project_staging_router = APIRouter(prefix="/staging", tags=["Project Staging"])
 project_staging_service: ProjectStagingService = di[ProjectStagingService]
 
 
-@project_staging_router.post("/", summary='Create or Update Project Staging', response_model=SuccessResponse[QueryProjectStagingDto],
+@project_staging_router.post("", summary='Create or Update Project Staging', response_model=SuccessResponse[QueryProjectStagingDto],
                   status_code=status.HTTP_200_OK)
 async def upsert_project_staging(
         dto: UpsertProjectStagingDto
