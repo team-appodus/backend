@@ -8,11 +8,12 @@ from starlette.middleware.cors import CORSMiddleware
 
 from main.app.config.settings import settings
 from main.app.config.bootstrap import DiBootstrap
+from appodus_utils.config.client_manager import ClientStateManager
 
 from main.app.domain import appodus_router
 from main.app.db.seeder import DataSeeder
 
-from appodus_utils.db.session import close_db_engine
+from appodus_utils.db.session import close_db_engine, init_db_engine_and_session
 from appodus_utils.domain.client.controller import client_router
 from appodus_utils.exception.exception_handlers import (
     appodus_exception_handler,
@@ -26,19 +27,19 @@ from appodus_utils.middleware.db_session_middleware import DBSessionMiddleware
 from appodus_utils.middleware.request_logging_middleware import RequestLoggingMiddleware
 from fastapi import FastAPI, Depends
 from fastapi.exceptions import RequestValidationError
-from httpx import AsyncClient
 from kink import di
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 
 logger: Logger = di['logger']
 data_seeder: DataSeeder = DataSeeder()
-httpx_client: AsyncClient = di[AsyncClient]
+client_state_manager: ClientStateManager = ClientStateManager()
 
 
 @asynccontextmanager
 async def lifespan_event(app: FastAPI):
     logger.debug("Running lifespan..")
+    await client_state_manager.init_clients()
 
     # Seed data
     await data_seeder.run_data_seed()
@@ -46,8 +47,7 @@ async def lifespan_event(app: FastAPI):
     logger.debug("Done running lifespan")
     yield
     logger.debug(f"Shutting down {settings.APP_NAME}...")
-    await close_db_engine()
-    await httpx_client.aclose()
+    await client_state_manager.close_clients()
     logger.debug(f"{settings.APP_NAME} is shutdown")
 
 
