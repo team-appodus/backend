@@ -5,9 +5,6 @@ from main.app.config.settings import settings
 from kink import di
 from redis import Redis
 
-bootstrap_di_called = False
-
-
 class DiBootstrap(BaseDiBootstrap):
 
     def inject_redis(self):
@@ -24,8 +21,5 @@ class DiBootstrap(BaseDiBootstrap):
         pass
 
 
-if not bootstrap_di_called:
-    di_bootstrap = DiBootstrap()
-    di_bootstrap.init()
-
-    bootstrap_di_called = True
+di_bootstrap = DiBootstrap()
+di_bootstrap.init()
